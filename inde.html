@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Center the container */
+        .container {
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
+            height: 100vh;
+        }
+
+        /* Style the buttons */
+        button {
+            cursor: pointer;
+        }
+
+        /* Style the stopwatch box */
+        #time {
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mx-auto my-auto">
+        <div class="text-center my-8">
+            <h1 class="text-3xl font-bold">Stopwatch Application</h1>
+        </div>
+        <div class="mx-auto w-72 p-4 border-2 border-gray-400 rounded-lg">
+            <div id="time" class="text-6xl font-bold">00:00:00</div>
+            <div class="mt-4">
+                <button id="start"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Start</button>
+                <button id="pause"
+                    class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2">Pause</button>
+                <button id="reset"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Reset</button>
+            </div>
+        </div>
+        <div>
+            <p class="text-center absolute bottom-4 left-0 right-0 font-semibold">Made with ❤️ by <a class="underline"
+                    href="https://www.linkedin.com/in/abusayeed4bd/">Abu Sayeed</a></p>
+        </div>
+    </div>
+
+    <script>
+        let timer = null;
+        let seconds = 0;
+
+        const displayTime = () => {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+
+            const time = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            document.getElementById('time').innerText = time;
+        }
+
+        const startTimer = () => {
+            if (timer === null) {
+                timer = setInterval(() => {
+                    seconds++;
+                    displayTime();
+                }, 1000);
+            }
+        }
+
+        const pauseTimer = () => {
+            clearInterval(timer);
+            timer = null;
+        }
+
+        const resetTimer = () => {
+            clearInterval(timer);
+            timer = null;
+            seconds = 0;
+            displayTime();
+        }
+
+        document.getElementById('start').addEventListener('click', startTimer);
+        document.getElementById('pause').addEventListener('click', pauseTimer);
+        document.getElementById('reset').addEventListener('click', resetTimer);
+    </script>
+
+
+</body>
+
+</html>
